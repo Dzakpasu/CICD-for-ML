@@ -1,56 +1,25 @@
 name: Continuous Integration
-
 on:
   push:
-    branches: ["main"]
+    branches: [ "main" ]
   pull_request:
-    branches: ["main"]
+    branches: [ "main" ]
   workflow_dispatch:
-
-permissions:
-  contents: read
-  pull-requests: write
-
+  
+permissions: write-all
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      - name: Set up CML
-        uses: iterative/setup-cml@v2
-
-      - name: Cache Python Dependencies
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.cache
-            .venv
-          key: ${{ runner.os }}-deps-${{ hashFiles('requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-deps-
-
+      - uses: actions/checkout@v3
+      - uses: iterative/setup-cml@v2
       - name: Install Packages
         run: make install
-
-      - name: Format Code
+      - name: Format
         run: make format
-
-      - name: Train Model
+      - name: Train
         run: make train
-
-      - name: Evaluate Model
+      - name: Evaluation
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: make eval
-
-      - name: Publish CML Report
-        if: always()
-        env:
-          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo "## Evaluation Report" > report.md
-          cat results.txt >> report.md  # adjust this line if results go to another file
-          cml comment create report.md
