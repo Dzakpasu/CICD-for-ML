@@ -9,7 +9,6 @@ from sklearn.metrics import accuracy_score, f1_score
 import matplotlib.pyplot as plt
 from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix
 import skops.io as sio
-from skops.io import load, get_untrusted_types
 
 
 drug_df = pd.read_csv("Data/drug.csv")
@@ -38,10 +37,10 @@ pipe = Pipeline(
     ]
 )
 
-# train model 
+
 pipe.fit(X_train, y_train)
 
-#get predictions and evaluate model performance
+
 predictions = pipe.predict(X_test)
 accuracy = accuracy_score(y_test, predictions)
 f1 = f1_score(y_test, predictions, average="macro")
