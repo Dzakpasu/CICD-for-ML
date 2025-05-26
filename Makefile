@@ -21,7 +21,7 @@ update-branch:
 	git config --global user.name $(USER_NAME)
 	git config --global user.email $(USER_EMAIL)
 	git commit -am "Update with new results"
-	git push --force orgin HEAD:update
+	git push --force origin HEAD:update
 
 hf-login
 	git pull origin main
