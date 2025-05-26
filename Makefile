@@ -29,12 +29,10 @@ hf-login:
 	git switch update
 	huggingface-cli login --token $(HF) --add-to-git-credential
 
-
 push-hub:
     huggingface-cli upload Dzakpasu/Drug-Classification ./App --repo-type=space --commit-message="Sync App files"
     huggingface-cli upload Dzakpasu/Drug-Classification ./Model --repo-type=space --commit-message="Sync Model"
     huggingface-cli upload "Dzakpasu/Drug-Classification ./Results --repo-type=space --commit-message="Sync Results"
-
 
 deploy: hf-login push-hub
 
