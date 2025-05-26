@@ -23,11 +23,12 @@ update-branch:
 	git commit -am "Update with new results"
 	git push --force origin HEAD:update
 
-hf-login:
-	git pull origin main
-	git switch update
+hf-login: 
 	pip install -U "huggingface_hub[cli]"
+	git pull origin update
+	git switch update
 	huggingface-cli login --token $(HF) --add-to-git-credential
+
 
 push-hub:
 	huggingface-cli upload Dzakpasu/Drug-Classification ./App --repo-type=space --commit-message="Sync App files"
@@ -35,3 +36,5 @@ push-hub:
 	huggingface-cli upload Dzakpasu/Drug-Classification ./Results --repo-type=space --commit-message="Sync Results"
 
 deploy: hf-login push-hub
+
+all: install format train eval update-branch deploy
