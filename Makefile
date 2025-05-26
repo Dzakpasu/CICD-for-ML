@@ -22,3 +22,16 @@ update-branch:
 	git config --global user.email $(USER_EMAIL)
 	git commit -am "Update with new results"
 	git push --force orgin HEAD:update
+
+hf-login
+	git pull origin main
+	git switch update
+	pip install -U "huggingface_hub[cli]"
+	huggingface-cli login --token $(HF) --add-to-git-credential
+
+push-hub:
+	huggingface-cli upload Dzakpasu/Drug-Classification ./App --repo-type=space --commit-message="Sync App files"
+	huggingface-cli upload Dzakpasu/Drug-Classification ./Model --repo-type=space --commit-message="Sync Model"
+	huggingface-cli upload Dzakpasu/Drug-Classification ./Results --repo-type=space --commit-message="Sync Results"
+
+deploy: hf-login push-hub
