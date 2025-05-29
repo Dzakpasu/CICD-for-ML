@@ -34,5 +34,4 @@ push-hub:
 	huggingface-cli upload "Dzakpasu/Drug-Classification" ./Model --repo-type=space --commit-message="Sync Model"
 	huggingface-cli upload "Dzakpasu/Drug-Classification" ./Results --repo-type=space --commit-message="Sync Results"
 
-deploy: 
-	hf-login push-hub
+deploy: hf-login push-hub
