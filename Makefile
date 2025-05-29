@@ -35,3 +35,5 @@ push-hub:
 	huggingface-cli upload "Dzakpasu/Drug-Classification" ./Results --repo-type=space --commit-message="Sync Results"
 
 deploy: hf-login push-hub
+
+all: install format train eval update-branch deploy
