@@ -7,8 +7,8 @@ base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 model_path = os.path.join(base_dir, "Model", "drug_pipeline.skops")
 
 # Get the untrusted types first to see what needs to be trusted
-untrusted_types = sio.get_untrusted_types(file=model_path)
-print("Untrusted types found:", untrusted_types)
+# untrusted_types = sio.get_untrusted_types(file=model_path)
+# print("Untrusted types found:", untrusted_types)
 
 pipe = sio.load(model_path, trusted=True)
 
