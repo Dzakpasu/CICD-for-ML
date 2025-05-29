@@ -17,7 +17,14 @@ This repository serves as a beginner-friendly guide to implementing CI/CD for ma
 ---
 
 ## 📦 Project Structure
-<pre> ```text ├── app.py # Gradio interface for model inference ├── data/ # Dataset and preprocessing scripts ├── model/ # Model definition and training logic ├── .github/workflows/ # GitHub Actions CI/CD workflows ├── requirements.txt # Python dependencies ├── README.md # Project documentation ``` </pre>
+```text
+├── app.py               # Gradio interface for model inference
+├── data/                # Dataset and preprocessing scripts
+├── model/               # Model definition and training logic
+├── .github/workflows/   # GitHub Actions CI/CD workflows
+├── requirements.txt     # Python dependencies
+├── README.md            # Project documentation
+
 
 
 ---
