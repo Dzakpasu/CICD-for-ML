@@ -1,17 +1,24 @@
 import gradio as gr
 import skops.io as sio
-import os
+import warnings
+from sklearn.exceptions import InconsistentVersionWarning
 
+# Suppress the version warnings
+warnings.filterwarnings("ignore", category=InconsistentVersionWarning)
 
-base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-model_path = os.path.join(base_dir, "Model", "drug_pipeline.skops")
-
-# Get the untrusted types first to see what needs to be trusted
-# untrusted_types = sio.get_untrusted_types(file=model_path)
-# print("Untrusted types found:", untrusted_types)
-
-pipe = sio.load(model_path, trusted=True)
-
+# Explicitly specify trusted types
+trusted_types = [
+    "sklearn.pipeline.Pipeline",
+    "sklearn.preprocessing.OneHotEncoder",
+    "sklearn.preprocessing.StandardScaler",
+    "sklearn.compose.ColumnTransformer",
+    "sklearn.preprocessing.OrdinalEncoder",
+    "sklearn.impute.SimpleImputer",
+    "sklearn.tree.DecisionTreeClassifier",
+    "sklearn.ensemble.RandomForestClassifier",
+    "numpy.dtype",
+]
+pipe = sio.load("./Model/drug_pipeline.skops", trusted=trusted_types)
 
 
 def predict_drug(age, sex, blood_pressure, cholesterol, na_to_k_ratio):
@@ -19,7 +26,7 @@ def predict_drug(age, sex, blood_pressure, cholesterol, na_to_k_ratio):
 
     Args:
         age (int): Age of patient
-        sex (str): Sex of patient 
+        sex (str): Sex of patient
         blood_pressure (str): Blood pressure level
         cholesterol (str): Cholesterol level
         na_to_k_ratio (float): Ratio of sodium to potassium in blood
@@ -52,7 +59,7 @@ examples = [
 
 title = "Drug Classification"
 description = "Enter the details to correctly identify Drug type?"
-article = "This app is a part of the Beginner's Guide to CI/CD for Machine Learning. It teaches how to automate training, evaluation, and deployment of models to Hugging Face using GitHub Actions."
+article = "This app is a part of the **[Beginner's Guide to CI/CD for Machine Learning](https://www.datacamp.com/tutorial/ci-cd-for-machine-learning)**. It teaches how to automate training, evaluation, and deployment of models to Hugging Face using GitHub Actions."
 
 
 gr.Interface(
