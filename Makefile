@@ -36,6 +36,3 @@ push-hub:
 
 deploy: 
 	hf-login push-hub
-
-all: 
-	install format train eval update-branch deploy
