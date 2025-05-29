@@ -1,5 +1,5 @@
 # CICD-for-ML 🚀  
-**Beginner's Guide to Automating Training, Evaluation, and Deployment of ML Models using GitHub Actions**
+**This repository serves as a beginner-friendly guide to implementing CI/CD for machine learning projects. Using a drug classification model as an example, it demonstrates how to automate model training, evaluation, and deployment using GitHub Actions, with an interactive front-end powered by Gradio**
 
 ![CI/CD](https://img.shields.io/badge/CICD-GitHub%20Actions-blue)
 ![License](https://img.shields.io/badge/license-Apache%202.0-green)
@@ -17,7 +17,12 @@ This repository serves as a beginner-friendly guide to implementing CI/CD for ma
 ---
 
 ## 📦 Project Structure
-<pre> ```text ├── app.py # Gradio interface for model inference ├── data/ # Dataset and preprocessing scripts ├── model/ # Model definition and training logic ├── .github/workflows/ # GitHub Actions CI/CD workflows ├── requirements.txt # Python dependencies ├── README.md # Project documentation ``` </pre>
+├── app.py # Gradio interface for model inference 
+├── data/ # Dataset and preprocessing scripts 
+├── model/ # Model definition and training logic 
+├── .github/workflows/ # GitHub Actions CI/CD workflows 
+├── requirements.txt # Python dependencies 
+├── README.md # Project documentation
 
 
 ---
