@@ -17,13 +17,7 @@ This repository serves as a beginner-friendly guide to implementing CI/CD for ma
 ---
 
 ## 📦 Project Structure
-
-├── app.py # Gradio interface for model inference
-├── data/ # Dataset and preprocessing scripts
-├── model/ # Model definition and training logic
-├── .github/workflows/ # GitHub Actions CI/CD workflows
-├── requirements.txt # Python dependencies
-├── README.md # Project documentation
+<pre> ```text ├── app.py # Gradio interface for model inference ├── data/ # Dataset and preprocessing scripts ├── model/ # Model definition and training logic ├── .github/workflows/ # GitHub Actions CI/CD workflows ├── requirements.txt # Python dependencies ├── README.md # Project documentation ``` </pre>
 
 
 ---
@@ -71,7 +65,7 @@ To test or develop locally:
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/CICD-for-ML.git
+git clone https://github.com/Dzakpasu/CICD-for-ML.git
 cd CICD-for-ML
 
 # Install dependencies
