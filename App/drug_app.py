@@ -1,10 +1,13 @@
 import gradio as gr
 import skops.io as sio
 import warnings
+import os
 from sklearn.exceptions import InconsistentVersionWarning
 
 # Suppress the version warnings
 warnings.filterwarnings("ignore", category=InconsistentVersionWarning)
+
+print("Current working directory", os.getcwd())
 
 # Explicitly specify trusted types
 trusted_types = [
