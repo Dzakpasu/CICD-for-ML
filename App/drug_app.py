@@ -26,7 +26,7 @@ trusted_types = [
 ]
 model_path = Path(__file__).resolve().parent.parent / "Model" / "drug_pipeline.skops"
 pipe = sio.load(model_path, trusted=trusted_types)
-pipe = sio.load("/Model/drug_pipeline.skops", trusted=trusted_types)
+pipe = sio.load("./Model/drug_pipeline.skops", trusted=trusted_types)
 
 
 def predict_drug(age, sex, blood_pressure, cholesterol, na_to_k_ratio):
