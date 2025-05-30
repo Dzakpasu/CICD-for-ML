@@ -24,8 +24,8 @@ trusted_types = [
     "sklearn.ensemble.RandomForestClassifier",
     "numpy.dtype",
 ]
-model_path = Path(__file__).resolve().parent.parent / "Model" / "drug_pipeline.skops"
-pipe = sio.load(model_path, trusted=trusted_types)
+# model_path = Path(__file__).resolve().parent.parent / "Model" / "drug_pipeline.skops"
+# pipe = sio.load(model_path, trusted=trusted_types)
 pipe = sio.load("./Model/drug_pipeline.skops", trusted=trusted_types)
 
 
