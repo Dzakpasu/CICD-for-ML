@@ -1,3 +1,35 @@
+# name: Continuous Integration
+# on:
+#   push:
+#     branches: [ "main" ]
+#   pull_request:
+#     branches: [ "main" ]
+#   workflow_dispatch:
+  
+# permissions: write-all
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#       - uses: iterative/setup-cml@v2
+#       - name: Install Packages
+#         run: make install
+#       - name: Format
+#         run: make format
+#       - name: Train
+#         run: make train
+#       - name: Evaluation
+#         env:
+#           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         run: make eval
+#       - name: Update Branch
+#         env:
+#           NAME: ${{ secrets.USER_NAME }}
+#           EMAIL: ${{ secrets.USER_EMAIL }}
+#         run: make update-branch USER_NAME="$NAME" USER_EMAIL="$EMAIL"
+
+
 name: Continuous Integration
 on:
   push:
@@ -7,24 +39,45 @@ on:
   workflow_dispatch:
   
 permissions: write-all
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      
       - uses: iterative/setup-cml@v2
+      
       - name: Install Packages
         run: make install
+        
       - name: Format
         run: make format
-      - name: Train
+        
+      - name: Train Model
         run: make train
+        
+      - name: Verify Model Created
+        run: |
+          if [ ! -f "./Model/drug_pipeline.skops" ]; then
+            echo "❌ Error: Model file not found after training"
+            ls -la ./Model/ || echo "Model directory doesn't exist"
+            exit 1
+          fi
+          echo "✅ Model file created successfully"
+        
       - name: Evaluation
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: make eval
-      - name: Update Branch
+        
+      - name: Update Branch with Model
         env:
           NAME: ${{ secrets.USER_NAME }}
           EMAIL: ${{ secrets.USER_EMAIL }}
-        run: make update-branch USER_NAME="$NAME" USER_EMAIL="$EMAIL"
+        run: |
+          git config --global user.name "$NAME"
+          git config --global user.email "$EMAIL"
+          git add Model/ Results/ report.md
+          git commit -m "Update with new model, results and metrics" || echo "No changes to commit"
+          git push --force origin HEAD:update
