@@ -2,6 +2,7 @@ import gradio as gr
 import skops.io as sio
 import warnings
 import os
+import sys
 from pathlib import Path
 
 
@@ -26,8 +27,38 @@ trusted_types = [
 ]
 model_path = "./Model/drug_pipeline.skops"
 
-if not os.path.exists(model_path):
-    raise FileNotFoundError(f"Model file not found at {model_path}. Please run training first.")
+# Check multiple possible model locations
+possible_paths = [
+    "./Model/drug_pipeline.skops",
+    "./model/drug_pipeline.skops", 
+    "Model/drug_pipeline.skops",
+    "model/drug_pipeline.skops",
+    "drug_pipeline.skops"
+]
+
+model_path = None
+for path in possible_paths:
+    if os.path.exists(path):
+        model_path = path
+        break
+
+if model_path is None:
+    print("❌ Model file not found in any expected location")
+    print("📁 Current directory:", os.getcwd())
+    print("📁 Directory contents:")
+    for item in os.listdir("."):
+        if os.path.isdir(item):
+            print(f"  📁 {item}/")
+            try:
+                for subitem in os.listdir(item):
+                    print(f"    - {subitem}")
+            except:
+                pass
+        else:
+            print(f"  📄 {item}")
+    sys.exit(1)
+
+print(f"✅ Found model at: {model_path}")
 
 pipe = sio.load(model_path, trusted=trusted_types)
 
